@@ -12,7 +12,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+
+//OutputPath represents to path to which template will be outputed
 var OutputPath string
+
+// TemplatePath represents the path into which template will be searched
 var TemplatePath string
 var l = loader.NewLoader()
 
