@@ -7,8 +7,6 @@ regen generate  directory -t index.html -o out
 
 #TODO
 
-- [ ] Prevent circular inheritance
-- [ ] Add comment on functions
 - [ ] Set default value for directory to "."
 - [ ] Set default value for template to "./template.html"
 - [ ] Add ci
