@@ -2,7 +2,7 @@ fmt:
 	@go fmt $$(glide novendor)
 
 build:
-	@go build $$(glide novendor)
+	@go build -o regen regen.go
 
-run: build
-	@./resgen generate
+run:
+	@./regen generate examples -t examples/template.html

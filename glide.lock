@@ -1,5 +1,5 @@
-hash: 2e085a88ad6c2a1677035ba97a56242e228f6a326100b3f31d58b3077afc26e1
-updated: 2016-04-04T13:41:00.721028598+02:00
+hash: 0140eb9d24dd09c6694db46c2bf911f075c085303e6f9320a18ea2b8aa033b14
+updated: 2016-04-06T17:46:34.793723201+02:00
 imports:
 - name: github.com/BurntSushi/toml
   version: bbd5bb678321a0d6e58f1099321dfa73391c1b6f
@@ -14,6 +14,8 @@ imports:
   - hcl/strconv
   - json/scanner
   - json/token
+- name: github.com/imdario/mergo
+  version: ea0151498788f6fab6365eae24f29f41c0ac0acc
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/kr/pretty

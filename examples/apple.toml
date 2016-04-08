@@ -1,0 +1,5 @@
+inherit="base.toml"
+
+[information]
+firstname="steve"
+lastname="jobs"

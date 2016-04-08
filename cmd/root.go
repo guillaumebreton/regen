@@ -24,6 +24,10 @@ import (
 
 var cfgFile string
 
+
+var OutputPath string
+var TemplatePath string
+
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "resume-generator",
@@ -32,10 +36,6 @@ var RootCmd = &cobra.Command{
   an output directory. The Html template is using the golang templating system
   and the toml structure is defined in the structure.go file
   `,
- Run: func(cmd *cobra.Command, args []string) {
-   fmt.Println("fuck")
-      // Do Stuff Here
-  },
 }
 
 // Execute adds all child commands to the root command sets flags appropriately.
@@ -49,8 +49,8 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	RootCmd.PersistentFlags().String("output-path", "ouput", "The destination path for the generated resume")
-	RootCmd.PersistentFlags().String("template", "template", "The template to use to generate the resume")
+	RootCmd.PersistentFlags().StringVarP(&OutputPath, "output-path","o", "output", "The destination path for the generated resume")
+	RootCmd.PersistentFlags().StringVarP(&TemplatePath, "template", "t", "template.html", "The template to use to generate the resume")
 }
 
 // initConfig reads in config file and ENV variables if set.

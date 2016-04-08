@@ -23,5 +23,6 @@ _testmain.go
 *.test
 *.prof
 
-resgen
+regen
 vendor
+output
