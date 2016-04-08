@@ -1,0 +1,4 @@
+Information
+-----------
+Name  : {{.Information.Firstname}} {{.Information.Lastname}}
+Phone : {{.Information.Phone}}

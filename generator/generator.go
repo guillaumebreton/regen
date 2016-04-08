@@ -4,7 +4,7 @@ import (
   "text/template"
   "bytes"
 
-  "github.com/guillaumebreton/resume-generator/loader"
+  "github.com/guillaumebreton/regen/loader"
 )
 
 func Execute(templatePath string, resume *loader.Resume) (string, error) {

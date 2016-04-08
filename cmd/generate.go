@@ -22,8 +22,8 @@ import (
   "strings"
 
 	"github.com/spf13/cobra"
-  "github.com/guillaumebreton/resume-generator/loader"
-  "github.com/guillaumebreton/resume-generator/generator"
+  "github.com/guillaumebreton/regen/loader"
+  "github.com/guillaumebreton/regen/generator"
 )
 
 var l = loader.NewLoader()
@@ -69,7 +69,9 @@ var generateCmd = &cobra.Command{
             if err != nil {
               fmt.Printf("Fail to generate resume : %+v\n", err)
             } else {
-              filename := strings.TrimSuffix(file.Name(), ext) + ".html"
+
+              templateExt := filepath.Ext(TemplatePath)
+              filename := strings.TrimSuffix(file.Name(), ext) + templateExt
               fp := filepath.Join(OutputPath, filename)
               fmt.Printf("Generating %s to %s \n", file.Name(), fp)
               err = writeString(fp, output)
