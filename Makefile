@@ -9,5 +9,5 @@ build:
 
 
 run:
-	@./regen generate examples -t examples/template.html
-	@./regen generate examples -t examples/template.txt
+	@./regen examples -t examples/template.html
+	@./regen examples -t examples/template.txt

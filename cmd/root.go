@@ -3,25 +3,93 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"io/ioutil"
+	"path/filepath"
+	"strings"
 
+	"github.com/guillaumebreton/regen/generator"
+	"github.com/guillaumebreton/regen/loader"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 var cfgFile string
 
-
 var OutputPath string
 var TemplatePath string
+var l = loader.NewLoader()
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "resume-generator",
+	Use:   "regen directory [-t template.html] [-o output]",
 	Short: "Generate an html resume from toml",
 	Long: `The tool generate html template from a set of toml file into
   an output directory. The Html template is using the golang templating system
   and the toml structure is defined in the structure.go file
   `,
+	Run: func(cmd *cobra.Command, args []string) {
+    dir := "."
+		if len(args) > 0 {
+      dir = args[0]
+		}
+
+		//load templates
+		files, err := ioutil.ReadDir(dir)
+		if err != nil {
+			fmt.Println("Fail to list file in directory")
+			os.Exit(2)
+		}
+
+		//create the ouput path
+		_, err = os.Open(OutputPath)
+		if err != nil {
+			os.Mkdir(OutputPath, 0777)
+		}
+		fileInfo, err := os.Stat(OutputPath)
+		if !fileInfo.IsDir() || err != nil {
+			fmt.Printf("File %f is not a directory\n", OutputPath)
+			os.Exit(3)
+		}
+		for _, file := range files {
+			if !file.IsDir() {
+				ext := filepath.Ext(file.Name())
+				if ext == ".toml" {
+					resume, err := l.Load(dir, file.Name())
+					if err != nil {
+						fmt.Printf("Fail to load resume : %+v\n", err)
+					} else {
+						output, err := generator.Execute(TemplatePath, resume)
+						if err != nil {
+							fmt.Printf("Fail to generate resume : %+v\n", err)
+						} else {
+
+							templateExt := filepath.Ext(TemplatePath)
+							filename := strings.TrimSuffix(file.Name(), ext) + templateExt
+							fp := filepath.Join(OutputPath, filename)
+							err = writeString(fp, output)
+							if err != nil {
+								fmt.Printf("Fail write to file %s\n", fp)
+								fmt.Println(err)
+							}
+
+						}
+					}
+				}
+			}
+
+		}
+	},
+}
+
+//writeString write a string to a file. If the file does
+//not exists, it is created, else it's overwritten
+func writeString(fp string, data string) error {
+	f, err := os.Create(fp)
+	if err != nil {
+		return err
+	}
+	_, err = f.WriteString(data)
+	return err
 }
 
 // Execute adds all child commands to the root command sets flags appropriately.
@@ -35,7 +103,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	RootCmd.PersistentFlags().StringVarP(&OutputPath, "output-path","o", "output", "The destination path for the generated resume")
+	RootCmd.PersistentFlags().StringVarP(&OutputPath, "output-path", "o", "output", "The destination path for the generated resume")
 	RootCmd.PersistentFlags().StringVarP(&TemplatePath, "template", "t", "template.html", "The template to use to generate the resume")
 }
 
@@ -46,8 +114,8 @@ func initConfig() {
 	}
 
 	viper.SetConfigName(".resume-generator") // name of config file (without extension)
-	viper.AddConfigPath("$HOME")  // adding home directory as first search path
-	viper.AutomaticEnv()          // read in environment variables that match
+	viper.AddConfigPath("$HOME")             // adding home directory as first search path
+	viper.AutomaticEnv()                     // read in environment variables that match
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
