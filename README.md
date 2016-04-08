@@ -10,6 +10,10 @@ CLI to generate resume from toml files
 go get -u github.com/guillaumebreton/regen
 ~~~
 
+# Template definition
+
+TBD
+
 # Usage
 
 ~~~
@@ -20,5 +24,4 @@ regen generate  directory -t index.html -o out
 
 - [ ] Set default value for directory to "."
 - [ ] Set default value for template to "./template.html"
-- [ ] Add license
 - [ ] Complete data structure
