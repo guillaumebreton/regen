@@ -1,3 +1,38 @@
-{{.Information.Firstname}}
-{{.Information.Lastname}}
-{{.Information.Phone}}
+<html>
+  <body>
+  <h1>Information</h1>
+  <table>
+    <tr><td>Name</td><td>{{.Information.Firstname}} {{.Information.Lastname}}</td></tr>
+    <tr><td>Title</td><td>{{.Information.Title}}</td></tr>
+    <tr><td>Phone</td><td>{{.Information.Phone}}</td></tr>
+    <tr><td>Email</td><td>{{.Information.Email}}</td></tr>
+    <tr><td>Twitter</td><td>{{.Information.Twitter}}</td></tr>
+  </table>
+
+  <h1>Experiences</h1>
+  {{ range $key, $exp := .Experiences }}
+    <h2>
+      {{$exp.Title}} - {{$exp.Company}} ({{$exp.Start}} - {{$exp.End}})
+    </h2>
+    <p>
+      {{$exp.Description}}
+    </p>
+  {{ end }}
+
+  <h1>Education</h1>
+  {{ range $key, $edu := .Educations }}
+    <h2>
+      {{$edu.Title}} - {{$edu.Year}} - {{$edu.School}}
+    </h2>
+    <p>
+      {{$edu.Description}}
+    </p>
+  {{ end }}
+  <h1>Personal projects</h1>
+  {{ range $key, $proj := .Projects }}
+    <ul>
+      <li>{{$proj.Name}} - {{$proj.Description}}</li>
+    </ul>
+  {{ end }}
+  </body>
+</html>

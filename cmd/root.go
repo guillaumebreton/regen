@@ -103,7 +103,6 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
 	RootCmd.PersistentFlags().StringVarP(&OutputPath, "output-path", "o", "output", "The destination path for the generated resume")
 	RootCmd.PersistentFlags().StringVarP(&TemplatePath, "template", "t", "template.html", "The template to use to generate the resume")
 }

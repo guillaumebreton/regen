@@ -1,4 +1,28 @@
 Information
 -----------
-Name  : {{.Information.Firstname}} {{.Information.Lastname}}
-Phone : {{.Information.Phone}}
+
+Name    : {{.Information.Firstname}} {{.Information.Lastname}}
+Title   : {{.Information.Title}}
+Phone   : {{.Information.Phone}}
+Email   : {{.Information.Email}}
+Twitter : {{.Information.Twitter}}
+
+Experiences
+-----------
+{{ range $key, $exp := .Experiences }}
+- {{$exp.Title}} - {{$exp.Company}} ({{$exp.Start}} - {{$exp.End}})
+  {{$exp.Description}}
+{{ end }}
+
+Education
+---------
+{{ range $key, $edu := .Educations }}
+- {{$edu.Title}} - {{$edu.Year}} - {{$edu.School}}
+  {{$edu.Description}}
+{{ end }}
+
+Projects
+---------
+{{ range $key, $proj := .Projects }}
+- {{$proj.Name}} - {{$proj.Description}}
+{{ end }}

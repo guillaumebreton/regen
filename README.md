@@ -20,8 +20,3 @@ See (examples)[https://github.com/guillaumebreton/regen/tree/master/examples] di
 regen generate  directory -t index.html -o out
 ~~~
 
-#TODO
-
-- [ ] Set default value for directory to "."
-- [ ] Set default value for template to "./template.html"
-- [ ] Complete data structure
