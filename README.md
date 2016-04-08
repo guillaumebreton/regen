@@ -1,5 +1,16 @@
 # resume-generator
-CLI to generate resume from json and pdf template
+
+[![Circle CI](https://circleci.com/gh/guillaumebreton/regen/tree/master.svg?style=svg)](https://circleci.com/gh/guillaumebreton/regen/tree/master)
+
+CLI to generate resume from toml files
+
+# Installation
+
+~~~
+go get -u github.com/guillaumebreton/regen
+~~~
+
+# Usage
 
 ~~~
 regen generate  directory -t index.html -o out
@@ -9,10 +20,5 @@ regen generate  directory -t index.html -o out
 
 - [ ] Set default value for directory to "."
 - [ ] Set default value for template to "./template.html"
-- [ ] Add ci
-- [ ] golint
 - [ ] Add license
-- [ ] Fill up readme
-- [ ] Accept text template
 - [ ] Complete data structure
-- [ ] Remove the generate commande and use only the root cmd
