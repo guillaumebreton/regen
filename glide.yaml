@@ -1,6 +1,5 @@
-package: github.com/guillaumebreton/resume-generator
+package: github.com/guillaumebreton/regen
 import:
 - package: github.com/spf13/cobra
-- package: github.com/spf13/viper
 - package: github.com/BurntSushi/toml
 

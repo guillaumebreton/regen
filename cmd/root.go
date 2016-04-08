@@ -10,10 +10,7 @@ import (
 	"github.com/guillaumebreton/regen/generator"
 	"github.com/guillaumebreton/regen/loader"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
-
-var cfgFile string
 
 var OutputPath string
 var TemplatePath string
@@ -105,20 +102,4 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	RootCmd.PersistentFlags().StringVarP(&OutputPath, "output-path", "o", "output", "The destination path for the generated resume")
 	RootCmd.PersistentFlags().StringVarP(&TemplatePath, "template", "t", "template.html", "The template to use to generate the resume")
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" { // enable ability to specify config file via flag
-		viper.SetConfigFile(cfgFile)
-	}
-
-	viper.SetConfigName(".resume-generator") // name of config file (without extension)
-	viper.AddConfigPath("$HOME")             // adding home directory as first search path
-	viper.AutomaticEnv()                     // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
 }
