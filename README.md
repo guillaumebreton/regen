@@ -12,7 +12,7 @@ go get -u github.com/guillaumebreton/regen
 
 # Template definition
 
-TBD
+See (examples)[https://github.com/guillaumebreton/regen/tree/master/examples] directory for template and toml definition
 
 # Usage
 
