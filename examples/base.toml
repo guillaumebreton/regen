@@ -7,23 +7,24 @@ twitter="@walt"
 Title="Lead animator"
 
 [[experiences]]
-start="2015"
-end="2016"
-title="Lead animator"
-company="Disney"
-description="Lead animator on several movies"
-
-[[experiences]]
-start="2014"
-end="2015"
+start="2014-01"
+end="2015-01"
 title="Lead animator"
 company="Pixar"
 description="Lead animator on several movies"
 
 
+[[experiences]]
+start="2015-01"
+end="present"
+title="Lead animator"
+company="Disney"
+description="Lead animator on several movies"
+
+
 [[educations]]
 school="Los angeles uni."
-year="2000"
+year=2000
 title="Master degree of drawer"
 description="Drawing Drawing Drawing"
 

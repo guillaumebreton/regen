@@ -9,20 +9,20 @@ Twitter : {{.Information.Twitter}}
 
 Experiences
 -----------
-{{ range $key, $exp := .Experiences }}
+{{ range $key, $exp := .SortedExperiences }}
 - {{$exp.Title}} - {{$exp.Company}} ({{$exp.Start}} - {{$exp.End}})
   {{$exp.Description}}
 {{ end }}
 
 Education
 ---------
-{{ range $key, $edu := .Educations }}
+{{ range $key, $edu := .SortedEducations }}
 - {{$edu.Title}} - {{$edu.Year}} - {{$edu.School}}
   {{$edu.Description}}
 {{ end }}
 
 Projects
 ---------
-{{ range $key, $proj := .Projects }}
+{{ range $key, $proj := .SortedProjects }}
 - {{$proj.Name}} - {{$proj.Description}}
 {{ end }}

@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -11,7 +11,6 @@ import (
 	"github.com/guillaumebreton/regen/loader"
 	"github.com/spf13/cobra"
 )
-
 
 //OutputPath represents to path to which template will be outputed
 var OutputPath string
@@ -30,9 +29,9 @@ var RootCmd = &cobra.Command{
   and the toml structure is defined in the structure.go file
   `,
 	Run: func(cmd *cobra.Command, args []string) {
-    dir := "."
+		dir := "."
 		if len(args) > 0 {
-      dir = args[0]
+			dir = args[0]
 		}
 
 		//load templates
@@ -73,8 +72,8 @@ var RootCmd = &cobra.Command{
 								fmt.Printf("Fail write to file %s\n", fp)
 								fmt.Println(err)
 							} else {
-                fmt.Printf("%s generated to %s\n", file.Name(), fp)
-              }
+								fmt.Printf("%s generated to %s\n", file.Name(), fp)
+							}
 
 						}
 					}

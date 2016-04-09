@@ -1,10 +1,9 @@
 package loader
 
 import (
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
-  "fmt"
-  "errors"
 
 	"github.com/BurntSushi/toml"
 )
@@ -14,7 +13,6 @@ type Loader struct {
 	loadedFiles map[string]*Resume
 }
 
-
 // NewLoader creates a new loader with an initialized map
 func NewLoader() *Loader {
 	return &Loader{
@@ -22,15 +20,17 @@ func NewLoader() *Loader {
 	}
 }
 
+// Load loads a toml data file and merege inherited data
 func (g *Loader) Load(dir string, name string) (*Resume, error) {
-  return g.load(dir, name, make([]string, 10))
+	return g.load(dir, name, make([]string, 10))
 }
 
-// Load load toml data file and merge into inherited data
+// Load loads toml data file and merge into inherited data. It tracks loaded data
+// to detect circular inheritance
 func (g *Loader) load(dir string, name string, seen []string) (*Resume, error) {
-  if contains(name, seen) {
-    return nil, errors.New(fmt.Sprintf("Circular inheritance detected with file %s", name))
-  }
+	if contains(name, seen) {
+		return nil, fmt.Errorf("Circular inheritance detected with file %s", name)
+	}
 	var resume *Resume
 	resume = g.loadedFiles[name]
 	if resume != nil {
@@ -47,7 +47,7 @@ func (g *Loader) load(dir string, name string, seen []string) (*Resume, error) {
 		return nil, err
 	}
 	if resume.Inherit != "" {
-    newSeen := append(seen, name)
+		newSeen := append(seen, name)
 		parent, err := g.load(dir, resume.Inherit, newSeen)
 		if err != nil {
 			return nil, err
@@ -58,11 +58,11 @@ func (g *Loader) load(dir string, name string, seen []string) (*Resume, error) {
 	return resume, nil
 }
 
-func contains(value string, array []string) bool{
-  for _, v := range array {
-    if v == value {
-      return true
-    }
-  }
-  return false
+func contains(value string, array []string) bool {
+	for _, v := range array {
+		if v == value {
+			return true
+		}
+	}
+	return false
 }

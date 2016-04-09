@@ -7,7 +7,6 @@ import (
 	"github.com/guillaumebreton/regen/loader"
 )
 
-
 // Execute generates a resume using data and a template path
 func Execute(templatePath string, resume *loader.Resume) (string, error) {
 	t, err := template.ParseFiles(templatePath)

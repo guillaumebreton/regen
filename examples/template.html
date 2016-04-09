@@ -10,7 +10,7 @@
   </table>
 
   <h1>Experiences</h1>
-  {{ range $key, $exp := .Experiences }}
+  {{ range $key, $exp := .SortedExperiences }}
     <h2>
       {{$exp.Title}} - {{$exp.Company}} ({{$exp.Start}} - {{$exp.End}})
     </h2>
@@ -20,7 +20,7 @@
   {{ end }}
 
   <h1>Education</h1>
-  {{ range $key, $edu := .Educations }}
+  {{ range $key, $edu := .SortedEducations }}
     <h2>
       {{$edu.Title}} - {{$edu.Year}} - {{$edu.School}}
     </h2>
@@ -29,7 +29,7 @@
     </p>
   {{ end }}
   <h1>Personal projects</h1>
-  {{ range $key, $proj := .Projects }}
+  {{ range $key, $proj := .SortedProjects }}
     <ul>
       <li>{{$proj.Name}} - {{$proj.Description}}</li>
     </ul>
