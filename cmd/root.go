@@ -18,6 +18,7 @@ var OutputPath string
 
 // TemplatePath represents the path into which template will be searched
 var TemplatePath string
+
 var l = loader.NewLoader()
 
 // RootCmd represents the base command when called without any subcommands
@@ -71,7 +72,9 @@ var RootCmd = &cobra.Command{
 							if err != nil {
 								fmt.Printf("Fail write to file %s\n", fp)
 								fmt.Println(err)
-							}
+							} else {
+                fmt.Printf("%s generated to %s\n", file.Name(), fp)
+              }
 
 						}
 					}
