@@ -3,6 +3,8 @@ package loader
 import (
 	"io/ioutil"
 	"path/filepath"
+  "fmt"
+  "errors"
 
 	"github.com/BurntSushi/toml"
 )
@@ -20,8 +22,15 @@ func NewLoader() *Loader {
 	}
 }
 
-// Load load toml data file and merge into inherited data
 func (g *Loader) Load(dir string, name string) (*Resume, error) {
+  return g.load(dir, name, make([]string, 10))
+}
+
+// Load load toml data file and merge into inherited data
+func (g *Loader) load(dir string, name string, seen []string) (*Resume, error) {
+  if contains(name, seen) {
+    return nil, errors.New(fmt.Sprintf("Circular inheritance detected with file %s", name))
+  }
 	var resume *Resume
 	resume = g.loadedFiles[name]
 	if resume != nil {
@@ -38,7 +47,8 @@ func (g *Loader) Load(dir string, name string) (*Resume, error) {
 		return nil, err
 	}
 	if resume.Inherit != "" {
-		parent, err := g.Load(dir, resume.Inherit)
+    newSeen := append(seen, name)
+		parent, err := g.load(dir, resume.Inherit, newSeen)
 		if err != nil {
 			return nil, err
 		}
@@ -46,4 +56,13 @@ func (g *Loader) Load(dir string, name string) (*Resume, error) {
 	}
 	g.loadedFiles[name] = resume
 	return resume, nil
+}
+
+func contains(value string, array []string) bool{
+  for _, v := range array {
+    if v == value {
+      return true
+    }
+  }
+  return false
 }
