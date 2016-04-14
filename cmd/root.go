@@ -18,8 +18,6 @@ var OutputPath string
 // TemplatePath represents the path into which template will be searched
 var TemplatePath string
 
-var l = loader.NewLoader()
-
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "regen directory [-t template.html] [-o output]",
@@ -51,6 +49,12 @@ var RootCmd = &cobra.Command{
 			fmt.Printf("File %f is not a directory\n", OutputPath)
 			os.Exit(3)
 		}
+		l := loader.NewLoader()
+		g, err := generator.NewGenerator(TemplatePath)
+		if err != nil {
+			fmt.Printf("Fail to generate resume : %+v\n", err)
+			os.Exit(4)
+		}
 		for _, file := range files {
 			if !file.IsDir() {
 				ext := filepath.Ext(file.Name())
@@ -59,7 +63,7 @@ var RootCmd = &cobra.Command{
 					if err != nil {
 						fmt.Printf("Fail to load resume : %+v\n", err)
 					} else {
-						output, err := generator.Execute(TemplatePath, resume)
+						output, err := g.Execute(resume)
 						if err != nil {
 							fmt.Printf("Fail to generate resume : %+v\n", err)
 						} else {

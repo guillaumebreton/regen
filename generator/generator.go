@@ -2,20 +2,30 @@ package generator
 
 import (
 	"bytes"
+  "fmt"
 	"text/template"
 
 	"github.com/guillaumebreton/regen/loader"
 )
 
-// Execute generates a resume using data and a template path
-func Execute(templatePath string, resume *loader.Resume) (string, error) {
+type Generator struct {
+	template *template.Template
+}
+
+// NewGenerator Creates a new generator
+func NewGenerator(templatePath string) (*Generator, error) {
 	t, err := template.ParseFiles(templatePath)
 	if err != nil {
-		return "", err
+		return nil, fmt.Errorf("Fail to load template %s, %s", templatePath, err)
 	}
+	return &Generator{t}, nil
+}
+
+// Execute generates a resume using data and a template path
+func (g *Generator) Execute(resume *loader.Resume) (string, error) {
 
 	buf := new(bytes.Buffer)
-	err = t.Execute(buf, resume)
+	err := g.template.Execute(buf, resume)
 	if err != nil {
 		return "", err
 	}

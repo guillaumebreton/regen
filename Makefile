@@ -11,3 +11,6 @@ build:
 run:
 	@./regen examples -t examples/template.html
 	@./regen examples -t examples/template.txt
+
+install:
+	@go install
