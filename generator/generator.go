@@ -2,12 +2,13 @@ package generator
 
 import (
 	"bytes"
-  "fmt"
+	"fmt"
 	"text/template"
 
 	"github.com/guillaumebreton/regen/loader"
 )
 
+// Generator from a template
 type Generator struct {
 	template *template.Template
 }

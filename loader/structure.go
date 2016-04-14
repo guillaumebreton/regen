@@ -14,7 +14,6 @@ type Information struct {
 	Twitter   string
 	Website   string
 	Title     string
-	Skills    []string
 }
 
 func mergeInformation(d, s Information) Information {
@@ -26,7 +25,6 @@ func mergeInformation(d, s Information) Information {
 	r.Twitter = mergeString(d.Twitter, s.Twitter)
 	r.Website = mergeString(d.Website, s.Website)
 	r.Title = mergeString(d.Title, s.Title)
-	r.Skills = append(d.Skills, s.Skills...)
 	return r
 }
 
