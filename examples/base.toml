@@ -6,34 +6,36 @@ phone="+3344556688"
 twitter="@walt"
 Title="Lead animator"
 
-[[experiences]]
+[experiences]
+
+[experiences.pixar]
 start="2014-01"
 end="2015-01"
 title="Lead animator"
 company="Pixar"
 description="Lead animator on several movies"
 
-
-[[experiences]]
+[experiences.disney]
 start="2015-01"
 end="present"
 title="Lead animator"
 company="Disney"
 description="Lead animator on several movies"
 
-
-[[educations]]
+[educations]
+[educations.master]
 school="Los angeles uni."
 year=2000
 title="Master degree of drawer"
 description="Drawing Drawing Drawing"
 
-[[Projects]]
+[projects]
+[projects.cindirella]
 name="cindirella"
 description="Story of a poor girl"
 url="http://cindirella.com"
 
-[[Projects]]
+[projects.mickey]
 name="mickey"
 description="Story of a cool mouse"
 url="http://mickey.com"

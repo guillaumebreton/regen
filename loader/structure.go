@@ -1,9 +1,8 @@
 package loader
 
 import (
-	"github.com/imdario/mergo"
+	"fmt"
 	"sort"
-	"time"
 )
 
 // Information represents general information
@@ -18,91 +17,87 @@ type Information struct {
 	Skills    []string
 }
 
-// Experience define a resume experience part
-type Experience struct {
-	Start       string
-	End         string
-	Company     string
-	Title       string
-	Description string
+func mergeInformation(d, s Information) Information {
+	r := Information{}
+	r.Firstname = mergeString(d.Firstname, s.Firstname)
+	r.Lastname = mergeString(d.Lastname, s.Lastname)
+	r.Phone = mergeString(d.Phone, s.Phone)
+	r.Email = mergeString(d.Email, s.Email)
+	r.Twitter = mergeString(d.Twitter, s.Twitter)
+	r.Website = mergeString(d.Website, s.Website)
+	r.Title = mergeString(d.Title, s.Title)
+	r.Skills = append(d.Skills, s.Skills...)
+	return r
 }
 
-//Date defines a sorting date
-func (e Experience) Date() time.Time {
-	t, err := time.Parse("2006-01", e.Start)
-	if err != nil {
-		return time.Now() // hiding the error ..
+func mergeString(s1, s2 string) string {
+	if s1 == "" {
+		fmt.Println(s1, s2)
+		return s2
 	}
-	return t
-}
-
-// Education defines a resume education part
-type Education struct {
-	Year        int
-	School      string
-	Title       string
-	Description string
-}
-
-// Date defines a sorting date
-func (e Education) Date() time.Time {
-	return time.Date(e.Year, 1, 1, 0, 0, 0, 0, time.UTC)
-}
-
-// Project defines a personal project
-type Project struct {
-	Year        int
-	Name        string
-	URL         string
-	Description string
-}
-
-// Date defines the sorting date
-func (p Project) Date() time.Time {
-	return time.Date(p.Year, 1, 1, 0, 0, 0, 0, time.UTC)
+	return s1
 }
 
 // Resume represents a resume structure
 type Resume struct {
 	Inherit     string
 	Information Information
-	Experiences []Experience
-	Educations  []Education
-	Projects    []Project
+	Experiences map[string]Experience
+	Educations  map[string]Education
+	Projects    map[string]Project
 }
 
 //SortedExperiences sorts and returns the experiences list
 func (r *Resume) SortedExperiences() []Experience {
-	s := make(Sortables, len(r.Experiences))
-	for k, v := range r.Experiences {
-		s[k] = Sortable(v)
+	s := make(Experiences, len(r.Experiences))
+	idx := 0
+	for _, e := range r.Experiences {
+		s[idx] = e
+		idx++
 	}
 	sort.Sort(s)
-	return r.Experiences
+	return s
 }
 
 //SortedEducations sorts and returns the educations list
 func (r *Resume) SortedEducations() []Education {
-	s := make(Sortables, len(r.Educations))
-	for k, v := range r.Educations {
-		s[k] = Sortable(v)
+	s := make(Educations, len(r.Educations))
+	idx := 0
+	for _, e := range r.Educations {
+		s[idx] = e
+		idx++
 	}
 	sort.Sort(s)
-	return r.Educations
+	return s
 }
 
 //SortedProjects sorts and returns the projects list
 func (r *Resume) SortedProjects() []Project {
-	s := make(Sortables, len(r.Projects))
-	for k, v := range r.Projects {
-		s[k] = Sortable(v)
+	s := make(Projects, len(r.Projects))
+	idx := 0
+	for _, e := range r.Projects {
+		s[idx] = e
+		idx++
 	}
 	sort.Sort(s)
-	return r.Projects
+	return s
 }
 
 // Merge merges two resume
 func (r *Resume) Merge(other *Resume) error {
-	mergo.Merge(r.Information, other.Information)
-	return mergo.Merge(r, other)
+	var err error
+	r.Information = mergeInformation(r.Information, other.Information)
+	r.Experiences, err = MergeExperiences(r.Experiences, other.Experiences)
+	if err != nil {
+		return err
+	}
+	r.Educations, err = MergeEducations(r.Educations, other.Educations)
+	if err != nil {
+		return err
+	}
+	r.Projects, err = MergeProjects(r.Projects, other.Projects)
+	if err != nil {
+		return err
+	}
+	return nil
 }
