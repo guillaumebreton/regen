@@ -28,11 +28,5 @@
       {{$edu.Description}}
     </p>
   {{ end }}
-  <h1>Personal projects</h1>
-  {{ range $key, $proj := .SortedProjects }}
-    <ul>
-      <li>{{$proj.Name}} - {{$proj.Description}}</li>
-    </ul>
-  {{ end }}
   </body>
 </html>

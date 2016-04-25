@@ -7,15 +7,16 @@ twitter="@walt"
 Title="Lead animator"
 
 [experiences]
-
-[experiences.pixar]
+[experiences.2]
+rank=1
 start="2014-01"
 end="2015-01"
 title="Lead animator"
 company="Pixar"
 description="Lead animator on several movies"
 
-[experiences.disney]
+[experiences.1]
+rank=2
 start="2015-01"
 end="present"
 title="Lead animator"
@@ -23,19 +24,18 @@ company="Disney"
 description="Lead animator on several movies"
 
 [educations]
-[educations.master]
+[educations.1]
 school="Los angeles uni."
 year=2000
 title="Master degree of drawer"
 description="Drawing Drawing Drawing"
 
-[projects]
-[projects.cindirella]
+[projects.1]
 name="cindirella"
 description="Story of a poor girl"
 url="http://cindirella.com"
 
-[projects.mickey]
+[projects.2]
 name="mickey"
 description="Story of a cool mouse"
 url="http://mickey.com"

@@ -20,9 +20,3 @@ Education
 - {{$edu.Title}} - {{$edu.Year}} - {{$edu.School}}
   {{$edu.Description}}
 {{ end }}
-
-Projects
----------
-{{ range $key, $proj := .SortedProjects }}
-- {{$proj.Name}} - {{$proj.Description}}
-{{ end }}

@@ -10,14 +10,11 @@ import (
 
 // Loader load toml file and merge them
 type Loader struct {
-	loadedFiles map[string]*Resume
 }
 
 // NewLoader creates a new loader with an initialized map
 func NewLoader() *Loader {
-	return &Loader{
-		loadedFiles: make(map[string]*Resume),
-	}
+	return &Loader{}
 }
 
 // Load loads a toml data file and merege inherited data
@@ -32,10 +29,7 @@ func (g *Loader) load(dir string, name string, seen []string) (*Resume, error) {
 		return nil, fmt.Errorf("Circular inheritance detected with file %s", name)
 	}
 	var resume *Resume
-	resume = g.loadedFiles[name]
-	if resume != nil {
-		return resume, nil
-	}
+
 	//load the toml file
 	filepath := filepath.Join(dir, name)
 	tomlData, err := ioutil.ReadFile(filepath)
@@ -46,15 +40,6 @@ func (g *Loader) load(dir string, name string, seen []string) (*Resume, error) {
 	if _, err := toml.Decode(string(tomlData), &resume); err != nil {
 		return nil, err
 	}
-	if resume.Inherit != "" {
-		newSeen := append(seen, name)
-		parent, err := g.load(dir, resume.Inherit, newSeen)
-		if err != nil {
-			return nil, err
-		}
-		resume.Merge(parent)
-	}
-	g.loadedFiles[name] = resume
 	return resume, nil
 }
 
