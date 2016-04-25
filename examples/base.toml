@@ -13,7 +13,10 @@ start="2014-01"
 end="2015-01"
 title="Lead animator"
 company="Pixar"
-description="Lead animator on several movies"
+description="""
+  Lead animator on several movies
+  Lead drawer on several movies
+"""
 
 [experiences.1]
 rank=2

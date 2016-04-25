@@ -1,3 +1,5 @@
+default: build run install
+
 fmt:
 	@go fmt $$(glide novendor)
 
@@ -14,3 +16,4 @@ run:
 
 install:
 	@go install
+

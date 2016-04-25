@@ -14,9 +14,9 @@
     <h2>
       {{$exp.Title}} - {{$exp.Company}} ({{$exp.Start}} - {{$exp.End}})
     </h2>
-    <p>
-      {{$exp.Description}}
-    </p>
+    {{ range $key, $line := $exp.DescriptionLines }}
+      <li>{{$line}}</li>
+    {{ end }}
   {{ end }}
 
   <h1>Education</h1>
